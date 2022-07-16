@@ -1,8 +1,8 @@
 #' @import magrittr
 #' @export
 login <- function() {
-  infile = "~/.cdsapirc"
-  infile = "C:/Users/kong/.cdsapirc"
+  # infile = "~/.cdsapirc"
+  infile = sprintf("%s/.cdsapirc", Sys.getenv("USERPROFILE"))
 
   info = read.table(infile)$V2[2] %>% {strsplit(., ":")[[1]]}
   user = info[1]
