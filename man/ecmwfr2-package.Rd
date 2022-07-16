@@ -4,12 +4,12 @@
 \name{ecmwfr2-package}
 \alias{ecmwfr2}
 \alias{ecmwfr2-package}
-\title{ecmwfr2: What the Package Does (One Line, Title Case)}
+\title{ecmwfr2: Download ERA5 data with R.}
 \description{
-What the package does (one paragraph).
+Download ERA5 data with R.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Dongdong Kong \email{kongdd.sysu@gmail.com} (\href{https://orcid.org/0000-0003-1836-8172}{ORCID})
 
 }
 \keyword{internal}

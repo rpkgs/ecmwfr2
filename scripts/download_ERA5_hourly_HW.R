@@ -25,7 +25,7 @@ writeLines(urls, "I:/data/EAR5/urls.txt")
         # 'relative_humidity',
         # 'specific_humidity'
     )
-    lst_years <- Ipaper::chunk(1979:2020, 4)
+    lst_years <- Ipaper::chunk(1959:2021, 4)
     for (varname in varnames[1:2]) {
         for (years in lst_years) {
             request_hourly(varname, years,
