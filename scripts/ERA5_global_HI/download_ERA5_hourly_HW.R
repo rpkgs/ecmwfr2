@@ -35,5 +35,4 @@ down_vars(vars, param, dsname)
 
 ## 02. download with `aria2c`
 d_url <- getProcessInfo()
-urls <- d_url %$% paste0(url, "\n\tout=", file)
-writeLines(urls, "I:/data/EAR5/urls.txt")
+
