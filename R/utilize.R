@@ -64,3 +64,11 @@ write_url <- function(d_url, outfile = "urls.txt", overwrite = TRUE) {
   }
   invisible()
 }
+
+`%||%` <- function(x, y) {
+  if (is.null(x)) {
+    y
+  } else {
+    x
+  }
+}

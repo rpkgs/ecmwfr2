@@ -42,6 +42,7 @@ remotes::install_github("rpkgs/ecmwfr2")
   ``` r
   library(ecmwfr2)
   login()
+  # ecmwfr::wf_set_key(user, key, service = "cds") # second option
   
   param <- list(
     product_type = "reanalysis",

@@ -16,17 +16,17 @@ get_years <- function(decade = 2020) {
 #' @import ecmwfr
 #' @export
 c_request <- function(param, dsname = "reanalysis-era5-single-levels",
-                      outfile = NULL, ...) {
+                      outfile = NULL, transfer = FALSE, ...) {
   param$year %<>% as.character()
   param$dataset_short_name <- dsname
 
   user <- getUserInfo()$user
   if (!is.null(outfile)) param$target <- outfile
-  if (is.null(param$target)) {
-    transfer <- FALSE
+  if (is.null(param$target)) {    
+    transfer %<>% `%||%`(FALSE)
     path <- "~"
   } else {
-    transfer <- TRUE
+    transfer %<>% `%||%`(TRUE)
     path <- dirname(param$target)
   }
   
@@ -39,12 +39,12 @@ c_request <- function(param, dsname = "reanalysis-era5-single-levels",
       path     = path, ...
     )
   })
-  
 }
+
 
 #' @export
 down_var <- function(var, param, dsname, 
-  decade_begin = 1950, decade_end = 2020, ...) 
+  decade_begin = 1950, decade_end = 2020, prefix = "ERA5_", ...) 
 {
   param$variable <- var
   decades <- seq(decade_begin, decade_end, 10)
@@ -53,10 +53,9 @@ down_var <- function(var, param, dsname,
     years <- get_years(decade)
     param$year <- years
 
-    outfile <- sprintf("%s_%d-%d", var, min(years), max(years))
-    print(outfile)
-
-    c_request(param, dsname)
+    param$target <- sprintf("%s%s_%d-%d", prefix, var, min(years), max(years))
+    print(param$target)
+    c_request(param, dsname, ...)
   }
 }
 

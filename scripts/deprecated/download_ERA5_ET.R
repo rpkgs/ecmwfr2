@@ -1,12 +1,5 @@
 # library(httr)
 # library(curlR)
-library(ecmwfr)
-# wf_set_key(user = "kongdd@mail2.sysu.edu.cn",
-#            key = "f436eb66ece8fb12140f1b22a0c14c06",
-#            service = "webapi")
-wf_set_key(user = "12106",
-           key = "faa165eb-2d80-4843-9c80-2d5e90adf977",
-           service = "cds")
 
 d_url = getProcessInfo()
 urls = d_url %$% paste0(url, "\n\tout=", file)
