@@ -44,10 +44,10 @@ c_request <- function(param, dsname = "reanalysis-era5-single-levels",
 
 #' @export
 down_var <- function(var, param, dsname, 
-  decade_begin = 1950, decade_end = 2020, prefix = "ERA5_", ...) 
+  decades = seq(1950, 2020, 10), prefix = "ERA5_", ...) 
 {
   param$variable <- var
-  decades <- seq(decade_begin, decade_end, 10)
+  # decades <- seq(decade_begin, decade_end, 10)
 
   for (decade in decades) {
     years <- get_years(decade)

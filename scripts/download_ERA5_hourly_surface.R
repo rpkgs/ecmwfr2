@@ -1,5 +1,5 @@
 library(ecmwfr2)
-login()
+# login()
 
 param <- list(
   product_type = "reanalysis",
@@ -26,13 +26,9 @@ vars <- c(
   # 'relative_humidity',
   # 'specific_humidity'
 )
-# param$variable = vars[1]
-# param$year = 2010
 
-# c_request(param, dsname)
 down_vars(vars, param, dsname)
-
+# down_var(vars[1], param, dsname, decades = 2010)
 
 ## 02. download with `aria2c`
 d_url <- getProcessInfo()
-

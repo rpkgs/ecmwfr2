@@ -72,3 +72,11 @@ write_url <- function(d_url, outfile = "urls.txt", overwrite = TRUE) {
     x
   }
 }
+
+rm_empty <- function(x) {
+  if (is.list(x)) {
+    x[!sapply(x, is_empty)]
+  } else {
+    x[!is.na(x)]
+  }
+}
