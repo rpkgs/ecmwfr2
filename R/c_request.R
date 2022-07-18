@@ -53,7 +53,7 @@ down_var <- function(var, param, dsname,
     years <- get_years(decade)
     param$year <- years
 
-    param$target <- sprintf("%s%s_%d-%d", prefix, var, min(years), max(years))
+    param$target <- sprintf("%s%s_%d-%d.nc", prefix, var, min(years), max(years))
     print(param$target)
     c_request(param, dsname, ...)
   }
