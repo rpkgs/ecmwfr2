@@ -1,14 +1,3 @@
-#' @export
-get_years <- function(decade = 2020) {
-  if (decade == 1950) {
-    1959
-  } else if (decade == 2020) {
-    2020:2021
-  } else {
-    seq(decade, decade + 9)
-  }
-}
-
 #' c_request
 #' 
 #' @param ... other parameters to [ecmwfr::wf_request()]
@@ -29,7 +18,7 @@ c_request <- function(param, dsname = "reanalysis-era5-single-levels",
     transfer %<>% `%||%`(TRUE)
     path <- dirname(param$target)
   }
-  
+    
   param %<>% rm_empty()
   suppressMessages({
     ecmwfr::wf_request(
@@ -41,6 +30,17 @@ c_request <- function(param, dsname = "reanalysis-era5-single-levels",
   })
 }
 
+
+#' @export
+get_years <- function(decade = 2020) {
+  # if (decade == 1950) {
+  #   1959
+  if (decade == 2020) {
+    2020:2022
+  } else {
+    seq(decade, decade + 9)
+  }
+}
 
 #' @export
 down_var <- function(var, param, dsname, 
@@ -55,6 +55,7 @@ down_var <- function(var, param, dsname,
 
     param$target <- sprintf("%s%s_%d-%d.nc", prefix, var, min(years), max(years))
     print(param$target)
+    # print(param)
     c_request(param, dsname, ...)
   }
 }

@@ -80,3 +80,7 @@ rm_empty <- function(x) {
     x[!is.na(x)]
   }
 }
+
+is_empty <- function(x) {
+  is.null(x) || (is.data.frame(x) && nrow(x) == 0) || length(x) == 0
+}
