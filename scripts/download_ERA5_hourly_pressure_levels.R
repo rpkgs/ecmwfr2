@@ -16,7 +16,7 @@ param <- list(
 dsname = "reanalysis-era5-pressure-levels"
 
 vars <- c(
-  "geopotential"
+  # "geopotential"
   # "surface_pressure"
   # 'v_component_of_wind',
   # "u_component_of_wind",
@@ -28,7 +28,8 @@ vars <- c(
 
 # c_request(param, dsname)
 # down_vars(vars, param, dsname)
-down_var(vars[1], param, dsname) # , decades = 2010
+# down_var(vars[1], param, dsname, decades = c(1940, 1950, 2020)) # , decades = 2010
+down_var(vars[1], param, dsname, decades = c(1950)) # , decades = 2010
 
 ## 02. download with `aria2c`
 d_url <- getProcessInfo()
