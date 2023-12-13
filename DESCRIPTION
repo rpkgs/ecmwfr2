@@ -10,7 +10,8 @@ Imports:
     ecmwfr, 
     magrittr, 
     keyring, 
-    httr
+    httr, 
+    data.table
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

@@ -16,9 +16,13 @@ login <- function() {
 #'
 #' @import keyring
 #' @export
-getUserInfo <- function(service = "ecmwfr_cds") {
-  info <- key_list()
-  user <- info[info$service == service, ]$username
+getUserInfo <- function(service = "ecmwfr_cds", user = NULL) {
+  info <- key_list() |> data.table()
+
+  d <- info[info$service == service, ]
+  if (!is.null(user)) d = d[username == user, ]
+
+  user <- d$username[1]
   key <- key_get(service = service, username = user)
   list(user = user, key = key)
 }
@@ -27,37 +31,44 @@ getUserInfo <- function(service = "ecmwfr_cds") {
 #'
 #' @import httr
 #' @export
-getProcessInfo <- function(outfile = "urls.txt", overwrite = TRUE) {
-  info <- getUserInfo()
+getProcessInfo <- function(outfile = "urls.txt", overwrite = TRUE, user = NULL) {
+  info <- getUserInfo(user = user)
   data <- httr::GET(
     "https://cds.climate.copernicus.eu/broker/api/v1/0/requests",
     httr::authenticate(info$user, info$key)
   ) %>% content()
+  
   df <- lapply(data, function(x) {
     url <- x$status$data[[1]]$location
     param = x$request$specific
     file <- param$target
-
+    # print2(param)
     if (is.null(file)) {
       years = param$year %>% unlist() %>% as.numeric()
-      var = param$variable %>% unlist() %>% paste(collapse = ",")
-      file = sprintf("ERA5_%s_%d-%d.nc", var, min(years), max(years))
+      var = param$variable %>% unlist() %>% paste(collapse = ",") 
+      
+      if (is_empty(years)) {
+        file <- ""
+      } else {
+        file = sprintf("ERA5_%s_%d-%d.nc", var, min(years), max(years))
+      }
     }
     if (is.null(url)) url = ""
     state <- x$status$state
-    data.frame(file, state, url)
+    data.table::data.table(file, state, url)
   }) %>% do.call(rbind, .)
 
   write_url(df, outfile, overwrite)
   df
 }
 
-#' @export 
+#' @import data.table
+#' @export
 #' @rdname getProcessInfo
 write_url <- function(d_url, outfile = "urls.txt", overwrite = TRUE) {
-  urls <- subset(d_url, state == "completed") %$% 
+  urls <- d_url[file != "" & url != "", ] %$%
     sprintf("# %s \n%s\n\tout=%s", file, url, file)
-  
+
   if (!file.exists(outfile) || overwrite) {
     if (file.exists(outfile)) file.remove(outfile)
     writeLines(urls, outfile)

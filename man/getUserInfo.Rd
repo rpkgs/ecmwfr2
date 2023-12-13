@@ -4,7 +4,7 @@
 \alias{getUserInfo}
 \title{get user info from keyring}
 \usage{
-getUserInfo(service = "ecmwfr_cds")
+getUserInfo(service = "ecmwfr_cds", user = NULL)
 }
 \description{
 get user info from keyring

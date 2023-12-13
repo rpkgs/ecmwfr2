@@ -2,7 +2,9 @@
 devtools::load_all()
 library(ecmwfr2)
 login()
+```
 
+```{r}
 param <- list(
   product_type = "reanalysis",
   format = "netcdf",
@@ -17,8 +19,8 @@ param <- list(
 dsname <- "reanalysis-era5-single-levels"
 
 vars <- c(
-  # "2m_temperature",
-  "2m_dewpoint_temperature"
+  "2m_temperature"
+  # "2m_dewpoint_temperature"
   # "skin_temperature"
   # "surface_pressure"
   # 'v_component_of_wind',
@@ -29,13 +31,15 @@ vars <- c(
   # 'specific_humidity'
 )
 
-down_yearly_vars(vars, param, dsname, years = rev(1961:2021))
+down_yearly_vars(vars, param, dsname, years = c(1958))
 # down_var(vars[1], param, dsname, decades = 2010)
 ```
 
 ## 02. download with `aria2c`
 
 ```{r}
-d_url <- getProcessInfo()
+user <- "12106" # kong
+# user <- "209037"
+d_url <- getProcessInfo(user)
 write_url(d_url)
 ```
