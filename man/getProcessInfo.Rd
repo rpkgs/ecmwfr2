@@ -5,7 +5,7 @@
 \alias{write_url}
 \title{get processing information from cds copernicus}
 \usage{
-getProcessInfo(outfile = "urls.txt", overwrite = TRUE, user = NULL)
+getProcessInfo(user = NULL, outfile = "urls.txt", overwrite = TRUE)
 
 write_url(d_url, outfile = "urls.txt", overwrite = TRUE)
 }

@@ -9,7 +9,6 @@ request_ERA5(
   years,
   transfer = TRUE,
   outdir = ".",
-  user = NULL,
   ds = "reanalysis-era5-pressure-levels-monthly-means",
   product_type = "monthly_averaged_reanalysis"
 )

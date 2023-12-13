@@ -8,10 +8,11 @@
 #'
 #' @export
 request_ERA5 <- function(varname = "temperature", years,
-                         transfer = TRUE, outdir = ".", user = NULL,
+                         transfer = TRUE, outdir = ".", 
+                        #  user = NULL,
                          ds = "reanalysis-era5-pressure-levels-monthly-means",
                          product_type = "monthly_averaged_reanalysis") {
-  if (is.null(user)) user <- getUserInfo()$user
+  # if (is.null(user)) user <- getUserInfo()$user
 
   months <- c("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12")
   levs <- c(1000, 925, 850, 700, 600, 500, 400, 300, 250, 200, 150, 100, 70, 10) %>% as.numeric()
@@ -39,7 +40,8 @@ request_ERA5 <- function(varname = "temperature", years,
 }
 
 request_hourly <- function(varname = "temperature", years,
-                           transfer = TRUE, outdir = ".", user = NULL,
+                           transfer = TRUE, outdir = ".", 
+                          #  user = NULL,
                            ds = "reanalysis-era5-pressure-levels-monthly-means",
                            product_type = "monthly_averaged_reanalysis") {
   months <- c("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12")
@@ -68,7 +70,8 @@ request_hourly <- function(varname = "temperature", years,
 }
 
 request_ERA5_runoff <- function(years,
-                                transfer = TRUE, outdir = ".", user = NULL,
+                                transfer = TRUE, outdir = ".", 
+                                # user = NULL,
                                 ds = "reanalysis-era5-pressure-levels-monthly-means") {
   varname <- "runoff"
   # months <- c('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12')

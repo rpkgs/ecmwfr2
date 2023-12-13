@@ -31,14 +31,14 @@ getUserInfo <- function(service = "ecmwfr_cds", user = NULL) {
 #'
 #' @import httr
 #' @export
-getProcessInfo <- function(outfile = "urls.txt", overwrite = TRUE, user = NULL) {
+getProcessInfo <- function(user = NULL, outfile = "urls.txt", overwrite = TRUE) {
   info <- getUserInfo(user = user)
   data <- httr::GET(
     "https://cds.climate.copernicus.eu/broker/api/v1/0/requests",
     httr::authenticate(info$user, info$key)
   ) %>% content()
   
-  df <- lapply(data, function(x) {
+  d_url <- lapply(data, function(x) {
     url <- x$status$data[[1]]$location
     param = x$request$specific
     file <- param$target
@@ -58,8 +58,8 @@ getProcessInfo <- function(outfile = "urls.txt", overwrite = TRUE, user = NULL) 
     data.table::data.table(file, state, url)
   }) %>% do.call(rbind, .)
 
-  write_url(df, outfile, overwrite)
-  df
+  write_url(d_url, outfile, overwrite)
+  d_url
 }
 
 #' @import data.table
