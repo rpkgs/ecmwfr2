@@ -4,15 +4,27 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-## Goals:
+## Goals
 
 > Submit `ERA5` downloading tasks in batch and download them with modern parallel downloading tool `aria2c`.
 
-解决`cdsapi`的痛点：
+解决`cdsapi`的问题：
 
 - 不能并行提交任务
+
 - 单线程下载速度过慢
 
+### 实现思路
+
+- 先提交所有任务
+
+- 写一个死循环，不断刷新和下载数据，直到所有任务完成
+  
+  ```bash
+  # 见examples
+  Rscript.exe download.R
+  ```
+- `aria2c`并行下载，跑满30M（CUG网络）
 
 ## Installation
 
@@ -35,7 +47,9 @@ remotes::install_github("rpkgs/ecmwfr2")
 
 2. 将api保存至`~/.cdsapirc`
 
-### Examples
+
+
+## Examples
 
 - **1. 下载1959-2021 ERA5 hourly地表气象数据**
 
