@@ -1,3 +1,4 @@
+#' @export 
 down_yearly <- function(
     var, param, dsname,
     years = 1961:2022,
@@ -16,6 +17,7 @@ down_yearly <- function(
   }
 }
 
+#' @export 
 down_yearly_vars <- function(
     vars, param, dsname,
     years = 1961:2022,

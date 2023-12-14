@@ -1,9 +1,5 @@
-```{r}
 library(ecmwfr2)
-# login()
-```
 
-```{r}
 param <- list(
   product_type = "reanalysis",
   format = "netcdf",
@@ -18,9 +14,9 @@ param <- list(
 dsname <- "reanalysis-era5-single-levels"
 
 vars <- c(
-  # "2m_temperature"
+  "2m_temperature"
   # "2m_dewpoint_temperature"
-  "skin_temperature"
+  # "skin_temperature"
   # "surface_pressure"
   # 'v_component_of_wind',
   # "u_component_of_wind",
@@ -30,25 +26,7 @@ vars <- c(
   # 'specific_humidity'
 )
 
-# user <- "12106" # kong
-user <- "209037"
-down_yearly_vars(vars, param, dsname, years = 1961:2022, user=user)
-# down_var(vars[1], param, dsname, decades = 2010)
-```
-
-## 2. download with `aria2c`
-
-```{r, eval=FALSE}
-library(ecmwfr2)
 user <- "12106" # kong
 # user <- "209037"
-
-while (1) {
-  d_url <- getProcessInfo(user)
-  # 如果所有文件都下载完了
-  write_url(d_url)
-
-  cmd = "aria2c -c -i urls.txt -x 5 -s 5 -j 5 -d Z:/ERA5/ERA5_hourly"  
-  shell(cmd, wait = FALSE)
-}
-```
+down_yearly_vars(vars, param, dsname, years = 1961:2022, user=user)
+# down_var(vars[1], param, dsname, decades = 2010)

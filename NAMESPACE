@@ -3,6 +3,8 @@
 export(c_request)
 export(down_var)
 export(down_vars)
+export(down_yearly)
+export(down_yearly_vars)
 export(getProcessInfo)
 export(getUserInfo)
 export(get_years)
