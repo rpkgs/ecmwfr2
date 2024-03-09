@@ -11,6 +11,9 @@ login <- function() {
   wf_set_key(user = user, key = key, service = "cds")
 }
 
+reverse <- function(x) {
+  x[seq(length(x), 1, -1)]
+}
 
 #' get user info from keyring
 #'
@@ -36,7 +39,7 @@ getProcessInfo <- function(user = NULL, outfile = "urls.txt", overwrite = TRUE) 
   data <- httr::GET(
     "https://cds.climate.copernicus.eu/broker/api/v1/0/requests",
     httr::authenticate(info$user, info$key)
-  ) %>% content()
+  ) %>% content() %>% reverse()
 
   d_url <- lapply(data, function(x) {
     l = x$status$data[[1]]
@@ -60,6 +63,8 @@ getProcessInfo <- function(user = NULL, outfile = "urls.txt", overwrite = TRUE) 
     state <- x$status$state
     data.table::data.table(file, state, url)
   }) %>% rm_empty() %>% do.call(rbind, .)
+  d_url = d_url[!duplicated(file), ] # remove duplicated
+  # dplyr::arrange(file)
 
   write_url(d_url, outfile, overwrite)
   d_url
