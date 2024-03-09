@@ -37,16 +37,19 @@ getProcessInfo <- function(user = NULL, outfile = "urls.txt", overwrite = TRUE) 
     "https://cds.climate.copernicus.eu/broker/api/v1/0/requests",
     httr::authenticate(info$user, info$key)
   ) %>% content()
-  
+
   d_url <- lapply(data, function(x) {
-    url <- x$status$data[[1]]$location
+    l = x$status$data[[1]]
+    if (!is.list(l)) return(NULL)
+
+    url <- l$location
     param = x$request$specific
     file <- param$target
     # print2(param)
     if (is.null(file)) {
       years = param$year %>% unlist() %>% as.numeric()
-      var = param$variable %>% unlist() %>% paste(collapse = ",") 
-      
+      var = param$variable %>% unlist() %>% paste(collapse = ",")
+
       if (is_empty(years)) {
         file <- ""
       } else {
@@ -56,7 +59,7 @@ getProcessInfo <- function(user = NULL, outfile = "urls.txt", overwrite = TRUE) 
     if (is.null(url)) url = ""
     state <- x$status$state
     data.table::data.table(file, state, url)
-  }) %>% do.call(rbind, .)
+  }) %>% rm_empty() %>% do.call(rbind, .)
 
   write_url(d_url, outfile, overwrite)
   d_url
